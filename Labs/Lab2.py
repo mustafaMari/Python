@@ -48,7 +48,7 @@ try:
     logger.info(f"total number of kilobytes sent to a user: {totalBytes / 1000}")
     try:
         mean = processingTime / numberOfLines
-        logger.debug(f"mean processing time ofa request: {mean}")
+        logger.info(f"mean processing time ofa request: {mean}")
     except ZeroDivisionError:
         logger.exception("DIVISION BY ZERO OCCURRED")
 except FileNotFoundError as e:
