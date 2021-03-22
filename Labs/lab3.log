@@ -26,3 +26,133 @@ INFO:Lab3:The number of entries where HTTP result is 5xx are: 2
 INFO:Lab3:The following entry's path is an html extension: ('/index.html', 200, 343, 2)
 INFO:Lab3:The following entry's path is an html extension: ('/add/products/a2w.html', 500, 0, 2)
 INFO:Lab3:END
+INFO:Lab3:START
+DEBUG:Lab3:The attributes of line 1 are: ('/index.html', 200, 343, 2)
+DEBUG:Lab3:The attributes of line 2 are: ('/delete/product/3', 404, 0, 1)
+DEBUG:Lab3:The attributes of line 4 are: ('/get/products/4', 200, 43434, 6)
+DEBUG:Lab3:The attributes of line 8 are: ('/add/products/a2w', 500, 0, 2)
+DEBUG:Lab3:The attributes of line 9 are: ('/add/products/a2w.html', 500, 0, 2)
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 12
+DEBUG:Lab3:The number of entries in the list are: 5
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 2
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 1
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 2
+INFO:Lab3:The following entry's path is an html extension: ('/index.html', 200, 343, 2)
+INFO:Lab3:The following entry's path is an html extension: ('/add/products/a2w.html', 500, 0, 2)
+INFO:Lab3:END
+INFO:Lab3:START
+DEBUG:Lab3:The attributes of line 1 are: ('/index.html', 200, 343, 2)
+DEBUG:Lab3:The attributes of line 2 are: ('/delete/product/3', 404, 0, 1)
+DEBUG:Lab3:The attributes of line 4 are: ('/get/products/4', 200, 43434, 6)
+DEBUG:Lab3:The attributes of line 8 are: ('/add/products/a2w', 500, 0, 2)
+DEBUG:Lab3:The attributes of line 9 are: ('/add/products/a2w.html', 500, 0, 2)
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 12
+DEBUG:Lab3:The number of entries in the list are: 5
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 2
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 1
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 2
+INFO:Lab3:[('/index.html', 200, 343, 2), ('/add/products/a2w.html', 500, 0, 2)]
+INFO:Lab3:END
+DEBUG:Lab3:The attributes of line 1 are: ('/index.html', 200, 343, 2)
+DEBUG:Lab3:The attributes of line 2 are: ('/delete/product/3', 404, 0, 1)
+DEBUG:Lab3:The attributes of line 3 are: ('/get/products/4', 200, 43434, 6)
+DEBUG:Lab3:The attributes of line 4 are: ('/add/products/a2w', 500, 0, 2)
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 4
+DEBUG:Lab3:The number of entries in the list are: 4
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 2
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 1
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 1
+INFO:Lab3:[('/index.html', 200, 343, 2)]
+INFO:Lab3:END
+DEBUG:Lab3:The attributes of line 1 are: ('/index.html', 200, 343, 2)
+DEBUG:Lab3:The attributes of line 2 are: ('/delete/product/3', 404, 0, 1)
+DEBUG:Lab3:The attributes of line 3 are: ('/get/products/4', 200, 43434, 6)
+DEBUG:Lab3:The attributes of line 4 are: ('/add/products/a2w', 500, 0, 2)
+DEBUG:Lab3:The attributes of line 7 are: ('/get/products/4.html', 200, 43434, 6)
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 7
+DEBUG:Lab3:The number of entries in the list are: 5
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 3
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 1
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 1
+INFO:Lab3:[('/index.html', 200, 343, 2), ('/get/products/4.html', 200, 43434, 6)]
+INFO:Lab3:END
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 0
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 0
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 0
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+INFO:Lab3:[]
+INFO:Lab3:END
+DEBUG:Lab3:The attributes of line 1 are: ('/index.html', 200, 343, 2)
+DEBUG:Lab3:The attributes of line 2 are: ('/delete/product/3', 404, 0, 1)
+DEBUG:Lab3:The attributes of line 3 are: ('/get/products/4', 200, 43434, 6)
+DEBUG:Lab3:The attributes of line 4 are: ('/add/products/a2w', 500, 0, 2)
+DEBUG:Lab3:The attributes of line 7 are: ('/get/products/4.html', 200, 43434, 6)
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 7
+DEBUG:Lab3:The number of entries in the list are: 5
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 0
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 0
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 0
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+INFO:Lab3:[]
+INFO:Lab3:END
+DEBUG:Lab3:The attributes of line 1 are: ('/index.html', 200, 343, 2)
+DEBUG:Lab3:The attributes of line 2 are: ('/delete/product/3', 404, 0, 1)
+DEBUG:Lab3:The attributes of line 3 are: ('/get/products/4', 200, 43434, 6)
+DEBUG:Lab3:The attributes of line 4 are: ('/add/products/a2w', 500, 0, 2)
+DEBUG:Lab3:The attributes of line 7 are: ('/get/products/4.html', 200, 43434, 6)
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 7
+DEBUG:Lab3:The number of entries in the list are: 5
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 0
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 0
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 0
+INFO:Lab3:[]
+INFO:Lab3:END
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 0
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 0
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 0
+INFO:Lab3:[]
+INFO:Lab3:END
+DEBUG:Lab3:The attributes of line 1 are: ('/index.html', 200, 343, 2)
+DEBUG:Lab3:The attributes of line 2 are: ('/delete/product/3', 404, 0, 1)
+DEBUG:Lab3:The attributes of line 3 are: ('/get/products/4', 200, 43434, 6)
+DEBUG:Lab3:The attributes of line 4 are: ('/add/products/a2w', 500, 0, 2)
+DEBUG:Lab3:The attributes of line 7 are: ('/get/products/4.html', 200, 43434, 6)
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 7
+DEBUG:Lab3:The number of entries in the list are: 5
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 0
+DEBUG:Lab3:The number of entries in the list are: 0
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 0
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 0
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 0
+INFO:Lab3:[]
+INFO:Lab3:END
+DEBUG:Lab3:The attributes of line 1 are: ('/index.html', 200, 343, 2)
+DEBUG:Lab3:The attributes of line 2 are: ('/delete/product/3', 404, 0, 1)
+DEBUG:Lab3:The attributes of line 3 are: ('/get/products/4', 200, 43434, 6)
+DEBUG:Lab3:The attributes of line 4 are: ('/add/products/a2w', 500, 0, 2)
+DEBUG:Lab3:The attributes of line 7 are: ('/get/products/4.html', 200, 43434, 6)
+DEBUG:Lab3:The number of lines which are read (including empty lines) is: 7
+DEBUG:Lab3:The number of entries in the list are: 5
+INFO:Lab3:The number of entries where HTTP result is 2xx are: 3
+INFO:Lab3:The number of entries where HTTP result is 4xx are: 1
+INFO:Lab3:The number of entries where HTTP result is 5xx are: 1
+INFO:Lab3:[('/index.html', 200, 343, 2), ('/get/products/4.html', 200, 43434, 6)]
+INFO:Lab3:END

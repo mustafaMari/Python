@@ -1,5 +1,5 @@
 import logging
-
+import sys
 logger = logging.getLogger("Lab3")
 logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
@@ -12,21 +12,15 @@ logger.addHandler(file_streamer)
 
 
 def run():
-    logger.info("START")
-    try:
-        userInput = input("File location: ")
-        logFile = open(userInput)
-        read_log(logFile)
-        logFile.close()
-    except FileExistsError as e:
-        logger.exception(f"FILE DOES NOT EXIST: {e}")
+
+    read_log()
     logger.info("END")
 
 
-def read_log(logFile):
+def read_log():
     returnList = []
     linesCounter = 0
-    for line in logFile.readlines():
+    for line in sys.stdin:
         if len(line.split()) == 0:
             linesCounter += 1
             continue
@@ -41,15 +35,13 @@ def read_log(logFile):
         dataSize = int(content[2])
         requestTime = int(content[3])
         attributes = (path, HTMLResultCode, dataSize, requestTime)
-
         logger.debug(f"The attributes of line {linesCounter} are: {attributes}")
         returnList.append(attributes)
-
     logger.debug(f"The number of lines which are read (including empty lines) is: {linesCounter}")
     logger.debug(f"The number of entries in the list are: {len(returnList)}")
     successful_reads(returnList)
     failed_reads(returnList)
-    print_html_entries(html_entries(returnList))
+    print_html_entries(returnList)
     return returnList
 
 
@@ -86,8 +78,7 @@ def html_entries(logList):
 
 
 def print_html_entries(entries):
-    for entry in entries:
-        logger.info(f"The following entry's path is an html extension: {entry}")
+    logger.info(html_entries(entries))
 
 
 if __name__ == "__main__":

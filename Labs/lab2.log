@@ -1,51 +1,13 @@
 INFO:lab2:START
-DEBUG:lab2:Path is: ['/index.html', '200', '343', '2', '\n']
+DEBUG:lab2:Line is: ['/index.html', '200', '343', '2\n']
 DEBUG:lab2:HTTP result code: 200
-DEBUG:lab2:Path is: ['/delete/product/3', '404', '0', '1', '\n']
-DEBUG:lab2:HTTP result code: 404
-DEBUG:lab2:Path before editing: /delete/product/3
-DEBUG:lab2:Path after editing: !/delete/product/3
-DEBUG:lab2:Path is: ['/get/products/4', '200', '43434', '6\n']
-DEBUG:lab2:HTTP result code: 200
-DEBUG:lab2:Path is: ['/add/products/a2w', '500', '0', '2']
-DEBUG:lab2:HTTP result code: 500
-INFO:lab2:All paths in log: ['/index.html', '!/delete/product/3', '/get/products/4', '/add/products/a2w']
-INFO:lab2:the path and processing time of the largest resource: /get/products/4 6
-INFO:lab2:the number of failed requests: 1
-INFO:lab2:total number of bytes sent to a user: 43777
-INFO:lab2:total number of kilobytes sent to a user: 43.777
-DEBUG:lab2:mean processing time ofa request: 2.75
-INFO:lab2:END
-INFO:lab2:START
-DEBUG:lab2:Line is: ['/index.html', '200', '343', '2', '\n']
-DEBUG:lab2:HTTP result code: 200
-DEBUG:lab2:Line is: ['/delete/product/3', '404', '0', '1', '\n']
+DEBUG:lab2:Line is: ['/delete/product/3', '404', '0', '1\n']
 DEBUG:lab2:HTTP result code: 404
 DEBUG:lab2:Path before editing: /delete/product/3
 DEBUG:lab2:Path after editing: !/delete/product/3
 DEBUG:lab2:Line is: ['/get/products/4', '200', '43434', '6\n']
 DEBUG:lab2:HTTP result code: 200
-DEBUG:lab2:Line is: ['/add/products/a2w', '500', '0', '2']
-DEBUG:lab2:HTTP result code: 500
-INFO:lab2:All paths in log: ['/index.html', '!/delete/product/3', '/get/products/4', '/add/products/a2w']
-INFO:lab2:the path and processing time of the largest resource: /get/products/4 6
-INFO:lab2:the number of failed requests: 1
-INFO:lab2:total number of bytes sent to a user: 43777
-INFO:lab2:total number of kilobytes sent to a user: 43.777
-DEBUG:lab2:mean processing time ofa request: 2.75
-INFO:lab2:END
-INFO:lab2:START
-INFO:lab2:START
-INFO:lab2:START
-DEBUG:lab2:Line is: ['/index.html', '200', '343', '2', '\n']
-DEBUG:lab2:HTTP result code: 200
-DEBUG:lab2:Line is: ['/delete/product/3', '404', '0', '1', '\n']
-DEBUG:lab2:HTTP result code: 404
-DEBUG:lab2:Path before editing: /delete/product/3
-DEBUG:lab2:Path after editing: !/delete/product/3
-DEBUG:lab2:Line is: ['/get/products/4', '200', '43434', '6\n']
-DEBUG:lab2:HTTP result code: 200
-DEBUG:lab2:Line is: ['/add/products/a2w', '500', '0', '2']
+DEBUG:lab2:Line is: ['/add/products/a2w', '500', '0', '2', '876']
 DEBUG:lab2:HTTP result code: 500
 INFO:lab2:All paths in log: ['/index.html', '!/delete/product/3', '/get/products/4', '/add/products/a2w']
 INFO:lab2:the path and processing time of the largest resource: /get/products/4 6
@@ -54,3 +16,4 @@ INFO:lab2:total number of bytes sent to a user: 43777
 INFO:lab2:total number of kilobytes sent to a user: 43.777
 INFO:lab2:mean processing time ofa request: 2.75
 INFO:lab2:END
+INFO:lab2:START
