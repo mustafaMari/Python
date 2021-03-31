@@ -12,7 +12,7 @@ logger.addHandler(file_streamer)
 
 
 def run():
-    # logger.info(f"The content of the log is being stored in a dictionary of dictionary as follows: {original_dictionary}")
+    #logger.info(f"The content of the log is being stored in a dictionary of dictionary as follows: {original_dictionary}")
     number_of_requests = ip_requests_number("38.18.38.6")
     logger.info(f"the ip : {number_of_requests} ")
     ip_most, size_most = ip_find()
@@ -27,7 +27,8 @@ def run():
 
 def read_logger():
     Dict = {}
-    for line in sys.stdin:
+    logs = open("C:/Users/Mustafa/OneDrive/Documents/GitHub/Python/Labs/access_log.txt")
+    for line in logs.readlines():
         list_of_content = []
         request = ""
         content_of_a_request = line.split(' ')
