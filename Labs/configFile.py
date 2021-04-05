@@ -26,7 +26,6 @@ def configuration():
         print(f"the available https requests are: {http_requests}")
         http_request = input("The http request is: ")
         check = checkIfHTTPValid(http_request)
-        print(check)
         if check is False:
             print("choose a valid http request")
             continue
@@ -57,5 +56,10 @@ def configuration():
         "second_filter": second_filter
     }
     print(Dict)
-    json.dumps(Dict)
+    file_name = 'file.json'
+    with open(file_name, 'w') as fi:
+        json.dump(Dict, fi)
 
+
+if __name__ == "__main__":
+    configuration()
