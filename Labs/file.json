@@ -1,1 +1,1 @@
-{"log_file": "access_log.txt", "http_request": "GET", "logging level": "DEBUG", "number_lines": 9, "second_filter": "DATE"}
+{"log_file": "access_log.txt", "http_request_method": "HEAD", "logging level": "INFO", "number_lines": 9, "number_of_ips_has_request_method": "POST"}

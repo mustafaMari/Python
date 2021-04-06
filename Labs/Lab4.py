@@ -14,13 +14,17 @@ logger.addHandler(file_streamer)
 def read_log():
     Dict = {}
     f_name = 'file.json'
-    parameters = ("log_file", "http_request", "logging level", "number_lines", "second_filter")
+    parameters = ("log_file", "http_request_method", "logging level", "number_lines", "number_of_ips_has_request_method")
     try:
         with open(f_name) as f:
             try:
                 data = json.load(f)
-                print(data)
-                print(data["logging level"])
+                method_http = data["http_request_method"]
+                lines_number_from_file = data["number_lines"]
+                number_request = data["number_of_ips_has_request_method"]
+                print(number_request)
+                if lines_number_from_file <= 0:
+                    lines_number_from_file = 5
                 logger.setLevel(data["logging level"])
 
                 try:
@@ -34,7 +38,6 @@ def read_log():
                     for line in log_file.readlines():
                         list_of_content = []
                         http_request_header = []
-                        list_http_headers = []
                         request = ""
                         content_of_a_request = line.split(' ')
                         ip_address = content_of_a_request[0]
@@ -57,13 +60,40 @@ def read_log():
                             Dict[ip_address]["request_header"] = list(
                                 chain(*zip(Dict[ip_address].get("request_header")), http_request_header)
                             )
-                    return Dict
+                    return Dict, method_http, lines_number_from_file, number_request
                 except FileNotFoundError:
                     print("The log file does not exists")
             except ValueError:
                 print("decoding the JSON file had failed")
     except FileNotFoundError:
         logger.error("The Json file does not exists")
+
+
+original_dictionary, http_method, lines_number, number_ip_request = read_log()
+
+
+def assign_in_list(lis):
+    http_requests = ("GET", "HEAD", "POST", "PUT", "DELETE",
+                     "TRACE", "OPTIONS", "CONNECT", "PATCH")
+    methods_l = []
+    resource_l = []
+    protocols_l = []
+    index = 0
+    for item in lis:
+        if index == 3:
+            index = 0
+        if index == 0:
+            if item[1:] not in http_requests:
+                # for requests that do not have a method we are skipping
+                continue
+            else:
+                methods_l.append(item[1:])
+        elif index == 1:
+            resource_l.append(item)
+        elif index == 2:
+            protocols_l.append(item)
+        index += 1
+    return methods_l, resource_l, protocols_l
 
 
 def requests_index_html(dictionary=None):
@@ -84,46 +114,57 @@ def requests_index_html(dictionary=None):
                 else:
                     return_list.append(x)
             return return_list
+
         list_con = all_in_one_list(content)
+
         # logger.info(f"the list is: {list_con}")
 
-        def assign_in_list(lis=None):
-            if lis is None:
-                lis = list_con
-            methods_l = []
-            resource_l = []
-            protocols_l = []
-            index = 0
-            for item in lis:
-                if index == 3:
-                    index = 0
-                if index == 0:
-                    if '/' in item:
-                        # for requests that do not have a method we are skipping
-                        continue
-                    else:
-                        methods_l.append(item)
-                elif index == 1:
-                    resource_l.append(item)
-                elif index == 2:
-                    protocols_l.append(item)
-                index += 1
-            return methods_l, resource_l, protocols_l
+        methods, resources, protocols = assign_in_list(list_con)
 
-        methods, resources, protocols = assign_in_list()
-        index = 0
-        for source in resources:
-            if "index.html" in source:
-                logger.info(f"the ip {ip} has a resource containing index.html. \nthe source is {source} and the "
-                            f"method for it is {methods[index][1:]}")
-            index += 1
         # logger.info(f"for {ip}: \n methods are {methods} \n resources are {resources} \n protocols are {protocols}")
         requests[ip] = {
             "methods": methods,
             "resources": resources,
             "protocols": protocols
         }
+    return requests
     # logger.info(f"The dictionary is {requests}")
+
+
+requests_original = requests_index_html()
+
+
+def print_requests():
+    br_line = 1
+    logger.info(f"{lines_number}")
+    for ip in requests_original:
+        methods = requests_original[ip]["methods"]
+        resources = requests_original[ip]["resources"]
+        index = 0
+        for method in methods:
+            if method == http_method:
+                logger.info(f"The ip {ip} has the method {method} and its resource is {resources[index]}")
+                if br_line == lines_number:
+                    logger.info("input any key to continue: ")
+                    try:
+                        input()
+                        br_line = 1
+                        continue
+                    except EOFError:
+                        logger.exception("an error had occurred the program will execute"
+                                         " to the end now without asking for an input")
+                br_line += 1
+            index += 1
+
+
+def number_of_ips_has_a_given_request():
+    ip_set = set()
+    for ip in requests_original:
+        methods = requests_original[ip]["methods"]
+        if number_ip_request in methods:
+            ip_set.add(ip)
+    logger.info(f"The number of ips that has the http method {number_ip_request} is {len(ip_set)}")
+    return ip_set
 
 
 def longest_request():
@@ -161,25 +202,25 @@ def ip_find(most_active=True, dictionary=None):
     if dictionary is None:
         dictionary = original_dictionary
     returnIp = ""
-    min = 0
+    minimum = 0
     size = 0
-    max = sys.maxsize
+    maximum = sys.maxsize
     for ip in dictionary:
         length = ip_requests_number(ip)["theNumberOfRequests"]
         if length == {}:
             break
         if not most_active:
-            if length == max:
+            if length == maximum:
                 returnIp += f" {ip}"
-            if length < max:
-                max = length
+            if length < maximum:
+                maximum = length
                 returnIp = ip
                 size = length
         else:
-            if length == min:
+            if length == minimum:
                 returnIp += ip
-            if length > min:
-                min = length
+            if length > minimum:
+                minimum = length
                 returnIp = ip
                 size = length
     return returnIp, size
@@ -206,12 +247,11 @@ def run():
     # logger.info(f"the least used ip is: {ip_least} and the number of the requests is: {size_least}")
     # stringRequest = longest_request()
     # logger.info(f"the string of the longest request is {stringRequest}")
-    # myset = non_existent()
-    # logger.info(f"the following paths do not exists: {myset}")
-    requests_index_html()
+    # my_set = non_existent()
+    # logger.info(f"the following paths do not exists: {my_set}")
+    number_of_ips_has_a_given_request()
+    print_requests()
 
-
-original_dictionary = read_log()
 
 if __name__ == "__main__":
     try:

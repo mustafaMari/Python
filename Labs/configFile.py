@@ -1,59 +1,46 @@
 import json
 
-http_requests = ("GET", "HEAD", "POST", "PUT", "DELETE",
-                 "TRACE", "OPTIONS", "CONNECT", "PATCH")
+http_requests_methods = ("GET", "HEAD", "POST", "PUT", "DELETE",
+                         "TRACE", "OPTIONS", "CONNECT", "PATCH")
 logging_levels = ("DEBUG", "INFO", "ERROR", "WARNING", "ERROR", "CRITICAL")
-second_filters = ("Request_Length", "HTTP_CODE", "DATE")
-
-
-def checkIfHTTPValid(http_requestC):
-    return http_requestC in http_requests
-
-
-def checkIfLevelValid(level):
-    return level in logging_levels
-
-
-def checkForASecondFilter(second):
-    return second in second_filters
 
 
 def configuration():
     log_file_name = input("The name of the log file is: ")
     check = False
-    http_request = ""
+    http_request_method = ""
     while not check:
-        print(f"the available https requests are: {http_requests}")
-        http_request = input("The http request is: ")
-        check = checkIfHTTPValid(http_request)
+        print(f"the available https request methods are: {http_requests_methods}")
+        http_request_method = input("The http request is: ")
+        check = http_request_method.upper() in http_requests_methods
         if check is False:
-            print("choose a valid http request")
+            print("choose a valid http request method")
             continue
     check = False
     logging_level = ""
     while not check:
         print(f"the available logging levels are: {logging_levels}")
         logging_level = input("Choose the logging level: ")
-        check = checkIfLevelValid(logging_level)
+        check = logging_level.upper() in logging_levels
         if check is False:
             print("choose a valid logging level")
             continue
     number_lines = int(input("The number of lines: "))
     check = False
-    second_filter = ""
+    number_of_ips_has_request_method = ""
     while not check:
-        print(f"the available second filter are {second_filters}")
-        second_filter = input("Choose a second filter: ")
-        check = checkForASecondFilter(second_filter)
+        print(f"the available https requests methods are: {http_requests_methods}")
+        number_of_ips_has_request_method = input("choose a method: ")
+        check = number_of_ips_has_request_method.upper() in http_requests_methods
         if check is False:
-            print("choose a valid second filter")
+            print("choose a valid http method")
             continue
     Dict = {
         "log_file": log_file_name,
-        "http_request": http_request,
-        "logging level": logging_level,
+        "http_request_method": http_request_method.upper(),
+        "logging level": logging_level.upper(),
         "number_lines": number_lines,
-        "second_filter": second_filter
+        "number_of_ips_has_request_method": number_of_ips_has_request_method.upper()
     }
     print(Dict)
     file_name = 'file.json'
