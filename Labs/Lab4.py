@@ -2,13 +2,16 @@ import json
 import logging
 import random
 import sys
-import re
 from itertools import chain
 
 logger = logging.getLogger("Lab 4")
+formatter = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
+file_streamer = logging.StreamHandler()
+file_streamer.setFormatter(formatter)
+logger.addHandler(file_streamer)
 
 
-def read_logger():
+def read_log():
     Dict = {}
     f_name = 'file.json'
     parameters = ("log_file", "http_request", "logging level", "number_lines", "second_filter")
@@ -19,10 +22,7 @@ def read_logger():
                 print(data)
                 print(data["logging level"])
                 logger.setLevel(data["logging level"])
-                formatter = logging.Formatter('%(levelname)s:%(name)s:%(message)s')
-                file_streamer = logging.StreamHandler()
-                file_streamer.setFormatter(formatter)
-                logger.addHandler(file_streamer)
+
                 try:
                     for parameter in parameters:
                         if parameter not in data:
@@ -34,13 +34,14 @@ def read_logger():
                     for line in log_file.readlines():
                         list_of_content = []
                         http_request_header = []
+                        list_http_headers = []
                         request = ""
                         content_of_a_request = line.split(' ')
                         ip_address = content_of_a_request[0]
                         for v in content_of_a_request[5:8]:
                             http_request_header.append(v)
                         http_request_header.append(content_of_a_request[5:8])
-                        for s in content_of_a_request[5:7]:
+                        for s in content_of_a_request[5:8]:
                             request += s
                         request_response = content_of_a_request[8]
                         list_of_content.append(request)
@@ -68,12 +69,61 @@ def read_logger():
 def requests_index_html(dictionary=None):
     if dictionary is None:
         dictionary = original_dictionary
+    requests = {}
     for ip in dictionary:
+
         content = original_dictionary[ip]["request_header"]
-        logger.info(f"teh content of the header is {content}")
-        # request_header = re.match(r"(.*)(/.*)(\w{4}/.*)", content[0])
-        # if request_header:
-        #     print((request_header.group()))
+
+        def all_in_one_list(attributes=content):
+            return_list = []
+            for x in attributes:
+                if type(x) is list:
+                    for s in x:
+                        return_list.append(s)
+                    attributes.remove(x)
+                else:
+                    return_list.append(x)
+            return return_list
+        list_con = all_in_one_list(content)
+        # logger.info(f"the list is: {list_con}")
+
+        def assign_in_list(lis=None):
+            if lis is None:
+                lis = list_con
+            methods_l = []
+            resource_l = []
+            protocols_l = []
+            index = 0
+            for item in lis:
+                if index == 3:
+                    index = 0
+                if index == 0:
+                    if '/' in item:
+                        # for requests that do not have a method we are skipping
+                        continue
+                    else:
+                        methods_l.append(item)
+                elif index == 1:
+                    resource_l.append(item)
+                elif index == 2:
+                    protocols_l.append(item)
+                index += 1
+            return methods_l, resource_l, protocols_l
+
+        methods, resources, protocols = assign_in_list()
+        index = 0
+        for source in resources:
+            if "index.html" in source:
+                logger.info(f"the ip {ip} has a resource containing index.html. \nthe source is {source} and the "
+                            f"method for it is {methods[index][1:]}")
+            index += 1
+        # logger.info(f"for {ip}: \n methods are {methods} \n resources are {resources} \n protocols are {protocols}")
+        requests[ip] = {
+            "methods": methods,
+            "resources": resources,
+            "protocols": protocols
+        }
+    # logger.info(f"The dictionary is {requests}")
 
 
 def longest_request():
@@ -161,13 +211,13 @@ def run():
     requests_index_html()
 
 
+original_dictionary = read_log()
+
 if __name__ == "__main__":
     try:
-        if read_logger() is None:
+        if original_dictionary is None:
             raise ValueError
         else:
-            original_dictionary = read_logger()
-
             run()
 
     except ValueError:
