@@ -43,7 +43,7 @@ def configuration():
         "number_of_ips_has_request_method": number_of_ips_has_request_method.upper()
     }
     print(Dict)
-    file_name = 'file.json'
+    file_name = 'file.txt'
     with open(file_name, 'w') as fi:
         json.dump(Dict, fi)
 

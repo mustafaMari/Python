@@ -14,7 +14,8 @@ logger.addHandler(file_streamer)
 def read_log():
     Dict = {}
     f_name = 'file.json'
-    parameters = ("log_file", "http_request_method", "logging level", "number_lines", "number_of_ips_has_request_method")
+    parameters = ("log_file", "http_request_method", "logging level", "number_lines",
+                  "number_of_ips_has_request_method")
     try:
         with open(f_name) as f:
             try:
@@ -22,7 +23,6 @@ def read_log():
                 method_http = data["http_request_method"]
                 lines_number_from_file = data["number_lines"]
                 number_request = data["number_of_ips_has_request_method"]
-                print(number_request)
                 if lines_number_from_file <= 0:
                     lines_number_from_file = 5
                 logger.setLevel(data["logging level"])
@@ -43,7 +43,6 @@ def read_log():
                         ip_address = content_of_a_request[0]
                         for v in content_of_a_request[5:8]:
                             http_request_header.append(v)
-                        http_request_header.append(content_of_a_request[5:8])
                         for s in content_of_a_request[5:8]:
                             request += s
                         request_response = content_of_a_request[8]
@@ -72,56 +71,50 @@ def read_log():
 original_dictionary, http_method, lines_number, number_ip_request = read_log()
 
 
-def assign_in_list(lis):
-    http_requests = ("GET", "HEAD", "POST", "PUT", "DELETE",
-                     "TRACE", "OPTIONS", "CONNECT", "PATCH")
-    methods_l = []
-    resource_l = []
-    protocols_l = []
-    index = 0
-    for item in lis:
-        if index == 3:
-            index = 0
-        if index == 0:
-            if item[1:] not in http_requests:
-                # for requests that do not have a method we are skipping
-                continue
-            else:
-                methods_l.append(item[1:])
-        elif index == 1:
-            resource_l.append(item)
-        elif index == 2:
-            protocols_l.append(item)
-        index += 1
-    return methods_l, resource_l, protocols_l
-
-
-def requests_index_html(dictionary=None):
+def all_requests(dictionary=None):
     if dictionary is None:
         dictionary = original_dictionary
     requests = {}
     for ip in dictionary:
-
         content = original_dictionary[ip]["request_header"]
 
-        def all_in_one_list(attributes=content):
+        def all_in_one_list():
             return_list = []
-            for x in attributes:
+            for x in content:
                 if type(x) is list:
                     for s in x:
                         return_list.append(s)
-                    attributes.remove(x)
+                    content.remove(x)
                 else:
                     return_list.append(x)
             return return_list
 
-        list_con = all_in_one_list(content)
+        list_con = all_in_one_list()
 
-        # logger.info(f"the list is: {list_con}")
+        def assign_in_list():
+            http_requests = ("GET", "HEAD", "POST", "PUT", "DELETE",
+                             "TRACE", "OPTIONS", "CONNECT", "PATCH")
+            methods_l = []
+            resource_l = []
+            protocols_l = []
+            index = 0
+            for item in list_con:
+                if index == 3:
+                    index = 0
+                if index == 0:
+                    if item[1:] not in http_requests:
+                        # for requests that do not have a method we are skipping
+                        continue
+                    else:
+                        methods_l.append(item[1:])
+                elif index == 1:
+                    resource_l.append(item)
+                elif index == 2:
+                    protocols_l.append(item)
+                index += 1
+            return methods_l, resource_l, protocols_l
 
-        methods, resources, protocols = assign_in_list(list_con)
-
-        # logger.info(f"for {ip}: \n methods are {methods} \n resources are {resources} \n protocols are {protocols}")
+        methods, resources, protocols = assign_in_list()
         requests[ip] = {
             "methods": methods,
             "resources": resources,
@@ -131,12 +124,23 @@ def requests_index_html(dictionary=None):
     # logger.info(f"The dictionary is {requests}")
 
 
-requests_original = requests_index_html()
+requests_original = all_requests()
+
+
+def print_index_html():
+    for ip in requests_original:
+        resources = requests_original[ip]["resources"]
+        methods = requests_original[ip]["methods"]
+        index = 0
+        for source in resources:
+            if "index.html" in source:
+                logger.info(f"the ip {ip} has a resource containing index.html. \nthe source is {source} and the "
+                            f"method for it is {methods[index]}")
+            index += 1
 
 
 def print_requests():
     br_line = 1
-    logger.info(f"{lines_number}")
     for ip in requests_original:
         methods = requests_original[ip]["methods"]
         resources = requests_original[ip]["resources"]
@@ -249,8 +253,12 @@ def run():
     # logger.info(f"the string of the longest request is {stringRequest}")
     # my_set = non_existent()
     # logger.info(f"the following paths do not exists: {my_set}")
-    number_of_ips_has_a_given_request()
+    logger.info("task 4: ")
+    print_index_html()
+    logger.info("task 5")
     print_requests()
+    logger.info("task6")
+    number_of_ips_has_a_given_request()
 
 
 if __name__ == "__main__":
