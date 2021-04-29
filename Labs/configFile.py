@@ -6,7 +6,7 @@ logging_levels = ("DEBUG", "INFO", "ERROR", "WARNING", "ERROR", "CRITICAL")
 
 
 def configuration():
-    log_file_name = input("The name of the log file is: ")
+    log_file_name = input("The name of the request file is: ")
     check = False
     http_request_method = ""
     while not check:

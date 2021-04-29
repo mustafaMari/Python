@@ -14,7 +14,7 @@ def read_config():
     t = ""
     contents = []
     default_content = ['name', 'access_log-20201025', 'debug',
-                       'DEBUG', 'lines', '9', 'separator'
+                       'DEBUG', 'lines', '9', 'separator',
                                               ';', 'filter', 'POST']
     try:
         with open(f_name) as f:
@@ -34,12 +34,13 @@ def read_config():
                     contents.insert(counter - 1, x)
                     contents.insert(counter, t)
                 counter += 2
-            name = contents[1]
-            logger.setLevel(contents[3])
+            name = contents[contents.index("name")+1]
+            logger.setLevel(contents[contents.index("debug")+1])
+            print(contents)
             display = {
-              "lines": int(contents[5]),
-              "separator": contents[7],
-              "filter": contents[9]
+              "lines": int(contents[contents.index("lines")+1]),
+              "separator": contents[contents.index("separator")+1],
+              "filter": contents[contents.index("filter")+1]
             }
             return name, display
     except FileNotFoundError:
@@ -68,17 +69,14 @@ def handling_log_lines():
     tuples = []
     for line in log_contents:
         ip_address = re.search(r"^(.*) - -", line)
-        time_stamp = re.search(r"\[(.*)\] ", line)
-        http_request_header = re.search(r"\"(\w*) \/", line)
-        http_status_code = re.search(r"\" ([1-5][0-9].)", line)
-        size = re.search(r' ([0-9]*) \"', line)
-        if size and ip_address and time_stamp and http_status_code and \
-           http_request_header:
+        time_stamp = re.search(r"([0-9]{2}\/[A-Za-z]{3}\/[0-9]{4}(:[0-9]{2}){3} \+[0-9]{4})", line)
+        logLines = re.search(r"\"(GET|POST|HEAD|PUT|DELETE|TRACE|OPTIONS|CONNECT|PATCH) ((\/.*HTTP\/[0-1].[0-1])\" ([2-5][0-9]{2}) ([1-9][0-9]*)) ", line)
+        if ip_address and time_stamp and logLines:
             ip_address = ip_address.group(1)
             time_stamp = time_stamp.group(1)
-            http_request_header = http_request_header.group(1)
-            http_status_code = int(http_status_code.group(1))
-            size = int(size.group(1))
+            http_request_header = logLines.group(1)
+            http_status_code = int(logLines.group(4))
+            size = int(logLines.group(5))
             data = (ip_address, time_stamp,
                     http_request_header, http_status_code, size)
             tuples.append(data)
@@ -161,8 +159,7 @@ def print_total_number_bytes():
 
 
 if __name__ == "__main__":
-    print_total_number_bytes()
-    print_all_requests()
+    print(all_tuples)
 
 # Before:
 # (venv)

@@ -61,7 +61,7 @@ def read_log():
                             )
                     return Dict, method_http, lines_number_from_file, number_request
                 except FileNotFoundError:
-                    print("The log file does not exists")
+                    print("The request file does not exists")
             except ValueError:
                 print("decoding the JSON file had failed")
     except FileNotFoundError:

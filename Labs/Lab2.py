@@ -37,7 +37,7 @@ for line in sys.stdin:
     if currentSize > PreviousSize:
         largestSizePath = content[0] + " " + content[3].strip('\n')
     numberOfLines += 1
-logger.info(f"All paths in log: {listsOfPaths}")
+logger.info(f"All paths in request: {listsOfPaths}")
 logger.info(f"the path and processing time of the largest resource: {largestSizePath}")
 logger.info(f"the number of failed requests: {failedRequests}")
 logger.info(f"total number of bytes sent to a user: {totalBytes}")
