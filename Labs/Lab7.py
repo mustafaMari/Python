@@ -5,6 +5,7 @@ timeStampRegex = r"([0-9]{2}\/[A-Za-z]{3}\/[0-9]{4}(:[0-9]{2}){3} \+[0-9]{4})"
 httpRequestRegex = r"((GET|POST|HEAD|PUT|DELETE|TRACE|OPTIONS|CONNECT|PATCH)" \
                    r" ((\/.*HTTP\/[0-1].[0-1]).*([2-5][0-9]{2}) ([1-9][0-9]*)))"
 ipRegex = r"\b(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}\b"
+#https://chrisjwarwick.wordpress.com/2012/09/16/more-regular-expressions-regex-for-ip-v4-addresses/#:~:text=More%20Regular%20Expressions%3A%20Regex%20for%20IP%20v4%20Addresses,Return%20%24Null%20if%20no%20valid%20address%20found.%20
 
 
 class MalformedHTTPRequest(Exception):
