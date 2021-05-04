@@ -1,5 +1,7 @@
+import argparse
 import csv
 import sys
+
 import openpyxl
 import openpyxl.styles
 
@@ -91,22 +93,20 @@ def save_to_excel(file_name):
 
 
 if __name__ == '__main__':
-    args = sys.argv
-    if '-h' in args:
-        print("The idea of this application is to practice analysing CSV files.\n"
-              "    -h ... display information regarding the application\n"
-              "    -o ... option to save the result of the functions into an exel file.\n"
-              "(if -o not found, only a summary will be displayed) ")
-        sys.exit(0)
-    name_csv_file = args[1]
+    parser = argparse.ArgumentParser(description="The idea of the application is to analyse data from CSV File,"
+                                                 " perform few operations and have the option"
+                                                 " to store the result of such operations to an Exel File")
+    parser.add_argument('csv_file', type=str, help="The name of the CSV File")
+    parser.add_argument('-o', help="To save results of all operations in the Exel File")
+    args = parser.parse_args()
+    name_csv_file = args.csv_file
     if name_csv_file[-4:] != '.csv':
         print("The file has a wrong format")
         sys.exit(0)
     else:
         dataset = read_csv(name_csv_file)
-    if '-o' in args:
-        name_xlsx_file = args[args.index('-o') + 1]
+    if 'o' in args and args.o is not None:
+        name_xlsx_file = args.o
         save_to_excel(name_xlsx_file)
     else:
         print(f"Number of cities in USA where there are reported victims is: {number_of_cities()}")
-
