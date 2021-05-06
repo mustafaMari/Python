@@ -1,7 +1,6 @@
 import argparse
 import csv
 import sys
-
 import openpyxl
 import openpyxl.styles
 
