@@ -3,39 +3,28 @@ import datetime
 import os
 import smtplib
 import sys
-from email.mime.text import MIMEText
 
 import bs4
 import requests
 
 
-# def read_config(file_name="email_configuration_file"):
-#     try:
-#         values = {}
-#         with open(file_name) as config_file:
-#             for line in config_file.readlines():
-#                 content = line.strip('\n').split('=')
-#                 variable_name = content[0]
-#                 variable_value = content[1]
-#                 values[variable_name] = variable_value
-#             return values
-#     except FileNotFoundError:
-#         print("The file does not exist")
-
-
-def send_email(subject):
+def send_email():
     key = 'secret'
     password = os.getenv(key)
-    msg = MIMEText(f"The current timestamp is {str(datetime.datetime.now())}")
-    msg['Subject'] = subject
+    login = 'login'
+    username = os.getenv(login)
+
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.ehlo()
-    server.login('252407@student.pwr.edu.pl', password)
-    server.sendmail(
-        '252407@student.pwr.edu.pl',
-        '252407@student.pwr.edu.pl', msg.as_string()
-    )
+    server.login(username, password)
+    message = f'Subject: Hello!! Today is {datetime.date.today()}' \
+              f' and the time is {datetime.datetime.today().time()}\nHello\nJust testing the project'
+    from_email = '252407@student.pwr.edu.pl'
+    to = '252407@student.pwr.edu.pl'
+    result = server.sendmail(from_email, to, message)
+    if len(result) != 0:
+        print(f"those user/s did not receive your email, double check their emails. {result}")
     server.quit()
 
 
@@ -49,6 +38,9 @@ def cats_facts():
 
 
 def limitedNumber(howMany):
+    if howMany < 1 or howMany > len(facts):
+        print("The requested number is invalid")
+        sys.exit()
     for fact in facts:
         print(fact)
         howMany -= 1
@@ -76,7 +68,7 @@ def list_researchers(letter, link='https://wiz.pwr.edu.pl/pracownicy?letter='):
             for x in dis:
                 if x.get('title') == 'Następna strona':
                     next_link = f"https://wiz.pwr.edu.pl{x.get('href')[:-1]}"
-                    return next_link, True
+                    return next_link
 
     if checkForAnewPage() is not None:
         list_researchers(letter, checkForAnewPage()[0])
@@ -102,8 +94,8 @@ if __name__ == '__main__':
     parser.add_argument('--cat-facts', help="Print a given number of facts about cats")
     parser.add_argument('--teachers', help="To list the name and emails of the researchers with the provided initial")
     args = parser.parse_args()
-    if args.mail is not None:
-        send_email(args.mail)
+    if args.mail == "My message to the teacher":
+        send_email()
     if args.cat_facts is not None:
         limitedNumber(int(args.cat_facts))
     if args.teachers is not None:
