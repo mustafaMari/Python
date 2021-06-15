@@ -100,12 +100,4 @@ def readBetweenTwoTimes(first, second):
 
 
 if __name__ == '__main__':
-  x = storeHTTPRequest('77.242.220.94 - - [19/Oct/2020:13:23:40 +0200] "POST / HTTP/1.1" 301 231 "-" "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"')
-  print(type(x))
-  print(storeHTTPRequest)
-  print(type(x) is storeHTTPRequest)
-
-  # print(type(storeHTTPRequest('77.242.220.94 - - [19/Oct/2020:13:23:40 +0200] '
-  #                             '"POST / HTTP/1.1" 301 231 "-" "Mozilla/5.0 '
-  #                             '(Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko"')))
-  # readBetweenTwoTimes("18/Aug/2020:02:33:30 +0200", "19/Nov/2020:13:43:42 +0200")
+  readBetweenTwoTimes("18/Aug/2020:02:33:30 +0200", "19/Nov/2020:13:43:42 +0200")
